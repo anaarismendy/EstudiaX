@@ -1,29 +1,33 @@
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-from logicaDifusa import calcular_nivel_estres
-import os
+from fastapi.middleware.cors import CORSMiddleware
+from logica_difusa.logicaDifusa import calcular_nivel_estres
 
 app = FastAPI(title="Evaluador de Estrés Académico")
 
-current_dir = os.path.dirname(os.path.realpath(__file__))
-static_path = os.path.join(current_dir, "static")
-app.mount("/static", StaticFiles(directory=static_path), name="static")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # En producción se pone la URL específica
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def home():
-    return FileResponse(os.path.join(static_path, "index.html"))
+    return {"mensaje": "API Evaluador de Estrés activa"}
 
 @app.get("/evaluar")
 def evaluar(sueno: int, carga: int, ansiedad: int):
     val_fuzzy = calcular_nivel_estres(sueno, carga, ansiedad)
-    
-    # Clasificación por umbrales para el Frontend
+
     if val_fuzzy < 35:
         nivel = "Leve"
     elif val_fuzzy < 65:
         nivel = "Moderado"
     else:
         nivel = "Alto"
-        
-    return {"nivel": nivel}
+
+    return {
+        "valor_fuzzy": round(val_fuzzy, 2),
+        "nivel": nivel
+    }
