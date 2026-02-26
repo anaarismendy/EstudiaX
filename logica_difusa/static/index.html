@@ -3,101 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Estrés Académico</title>
+    <title>Evaluador de Estrés Académico</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        input:invalid { border-color: #f87171; }
+        /* Animación de entrada con efecto rebote profesional */
+        .fade-in-up { 
+            animation: fadeInUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
+        }
+
+        @keyframes fadeInUp { 
+            from { 
+                opacity: 0; 
+                transform: translateY(20px) scale(0.95); 
+            } 
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            } 
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-indigo-50 to-slate-200 min-h-screen flex items-center justify-center p-4">
     <div class="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md border border-slate-100">
         <header class="text-center mb-8">
-            <h1 class="text-3xl font-extrabold text-slate-800">Evaluador de Estrés 🧠</h1>
-            <p id="instruccion" class="text-slate-500 text-sm mt-2">Completa todos los campos correctamente</p>
+            <h1 class="text-3xl font-extrabold text-slate-800 tracking-tight">Evaluador de Estrés 🧠</h1>
+            <p class="text-slate-500 text-sm mt-1 font-medium">Diagnóstico instantáneo</p>
         </header>
         
         <div class="space-y-5">
             <div>
-                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Horas de Sueño (0 a 12)</label>
+                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 ml-1">Horas de Sueño (0-12)</label>
                 <input type="number" id="sueno" min="0" max="12" placeholder="Ej: 7" oninput="validarYCalcular()" 
-                       class="w-full p-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:border-indigo-500 outline-none transition-all">
+                       class="w-full p-3 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-indigo-500 outline-none transition-all">
             </div>
             
             <div>
-                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Carga Académica (1 a 10)</label>
+                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 ml-1">Carga Académica (1-10)</label>
                 <input type="number" id="carga" min="1" max="10" placeholder="Ej: 5" oninput="validarYCalcular()" 
-                       class="w-full p-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:border-indigo-500 outline-none transition-all">
+                       class="w-full p-3 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-indigo-500 outline-none transition-all">
             </div>
             
             <div>
-                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Nivel de Ansiedad (0 a 10)</label>
+                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 ml-1">Nivel de Ansiedad (0-10)</label>
                 <input type="number" id="ansiedad" min="0" max="10" placeholder="Ej: 3" oninput="validarYCalcular()" 
-                       class="w-full p-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:border-indigo-500 outline-none transition-all">
+                       class="w-full p-3 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:border-indigo-500 outline-none transition-all">
             </div>
         </div>
 
-        <p id="errorMsg" class="text-rose-500 text-xs mt-4 font-bold text-center hidden">⚠️ Los valores están fuera de rango</p>
+        <p id="errorMsg" class="text-red-500 text-[10px] mt-4 font-bold text-center hidden uppercase tracking-widest animate-pulse">
+            ⚠️ Valores fuera de rango
+        </p>
 
-        <div id="resultado" class="mt-8 hidden p-6 rounded-2xl text-center border-2 fade-in shadow-inner">
-            <h2 id="nivelTxt" class="text-4xl font-black mb-1">-</h2>
-            <div class="h-2 w-full bg-black/10 rounded-full overflow-hidden mb-2">
-                <div id="progressBar" class="h-full bg-current transition-all duration-500" style="width: 0%"></div>
-            </div>
-            <p id="scoreTxt" class="text-lg font-bold"></p>
+        <div id="resultado" class="mt-8 hidden p-8 rounded-3xl text-center border-4 shadow-xl">
+            <p class="text-[10px] uppercase tracking-[0.3em] font-bold opacity-70 mb-2">Resultado</p>
+            <h2 id="nivelTxt" class="text-5xl font-black tracking-tighter">-</h2>
         </div>
     </div>
 
     <script>
         async function validarYCalcular() {
-            const s = document.getElementById('sueno');
-            const c = document.getElementById('carga');
-            const a = document.getElementById('ansiedad');
-            const resDiv = document.getElementById('resultado');
-            const errorMsg = document.getElementById('errorMsg');
+            const s = document.getElementById('sueno'), c = document.getElementById('carga'), a = document.getElementById('ansiedad');
+            const resDiv = document.getElementById('resultado'), errorMsg = document.getElementById('errorMsg'), nivelTxt = document.getElementById('nivelTxt');
 
-            // 1. Validar que no estén vacíos
+            // 1. Si los campos están vacíos, ocultamos todo y salimos
             if (s.value === "" || c.value === "" || a.value === "") {
                 resDiv.classList.add('hidden');
                 errorMsg.classList.add('hidden');
                 return;
             }
 
-            // 2. Validar Rangos (Conversión a número para comparar)
-            const valS = parseFloat(s.value);
-            const valC = parseFloat(c.value);
-            const valA = parseFloat(a.value);
+            // 2. Validar rangos numéricos
+            const valS = parseFloat(s.value), valC = parseFloat(c.value), valA = parseFloat(a.value);
+            const rangosOk = valS >= 0 && valS <= 12 && valC >= 1 && valC <= 10 && valA >= 0 && valA <= 10;
 
-            const suenoOk = valS >= 0 && valS <= 12;
-            const cargaOk = valC >= 1 && valC <= 10;
-            const ansiedadOk = valA >= 0 && valA <= 10;
-
-            if (!suenoOk || !cargaOk || !ansiedadOk) {
+            if (!rangosOk) {
                 resDiv.classList.add('hidden');
                 errorMsg.classList.remove('hidden');
                 return;
             }
 
-            // Si todo está bien, ocultamos error y calculamos
+            // Si llegamos aquí, los datos son válidos
             errorMsg.classList.add('hidden');
 
             try {
                 const response = await fetch(`/evaluar?sueno=${valS}&carga=${valC}&ansiedad=${valA}`);
                 const data = await response.json();
                 
-                resDiv.classList.remove('hidden', 'bg-emerald-50', 'bg-amber-50', 'bg-rose-50', 'border-emerald-200', 'border-amber-200', 'border-rose-200', 'text-emerald-800', 'text-amber-800', 'text-rose-800');
+                // --- REINICIO AGRESIVO DE ANIMACIÓN ---
+                resDiv.classList.add('hidden'); // Ocultamos
+                resDiv.classList.remove('fade-in-up'); // Quitamos animación
                 
-                if(data.nivel === "Bajo") resDiv.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-200');
-                else if(data.nivel === "Moderado") resDiv.classList.add('bg-amber-50', 'text-amber-800', 'border-amber-200');
-                else resDiv.classList.add('bg-rose-50', 'text-rose-800', 'border-rose-200');
+                // Reiniciar clases de color (limpiamos todo)
+                resDiv.className = "mt-8 p-8 rounded-3xl text-center border-4 shadow-xl";
 
-                document.getElementById('nivelTxt').innerText = data.nivel.toUpperCase();
-                document.getElementById('scoreTxt').innerText = `${data.score_estres}%`;
-                document.getElementById('progressBar').style.width = `${data.score_estres}%`;
+                // Aplicar nuevos colores según el nivel (SEMÁFORO)
+                if(data.nivel === "Bajo" || data.nivel === "Leve") {
+                    resDiv.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
+                } else if(data.nivel === "Moderado") {
+                    resDiv.classList.add('bg-yellow-400', 'text-amber-900', 'border-yellow-500');
+                } else {
+                    resDiv.classList.add('bg-red-600', 'text-white', 'border-red-700');
+                }
 
-            } catch (e) {
-                console.error("Error en la petición");
+                nivelTxt.innerText = data.nivel.toUpperCase();
+
+                setTimeout(() => {
+                    resDiv.classList.remove('hidden');
+                    resDiv.classList.add('fade-in-up');
+                }, 10);
+
+            } catch (e) { 
+                console.error("Error al conectar con la API"); 
             }
         }
     </script>
