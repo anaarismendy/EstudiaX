@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evaluador de Estrés Académico</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <h1>Evaluador de Estrés Académico</h1>
+      <p>Analiza el nivel de riesgo/estrés académico a partir de tus datos.</p>
+    </header>
+
+    <main class="app-main">
+      <section class="card formulario-card">
+        <h2>Datos del estudiante</h2>
+
+        <form id="form-evaluacion" novalidate>
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="sueño">
+                Horas de sueño <span class="hint">(0 - 12)</span>
+              </label>
+
+              <input type="range" id="sueño" name="sueño" min="0" max="12" step="1" value="8" />
+
+              <span class="valor-slider" id="valor-sueño">8</span>
+
+              <small class="error-message" data-error-for="sueño"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="carga">
+                Número de materias
+                <span class="hint">(0 - 10)</span>
+              </label>
+
+              <input type="range" id="carga" name="numero_materias" min="1" max="10" step="1" value="5" />
+
+              <span class="valor-slider" id="valor-carga">5</span>
+
+              <small class="error-message" data-error-for="numero_materias"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="ansiedad">
+                Nivel de ansiedad
+                <span class="hint">(0 - 10)</span>
+              </label>
+
+              <input type="range" id="ansiedad" name="ansiedad" min="0" max="10" step="1" value="5" />
+
+              <span class="valor-slider" id="valor-ansiedad">3.0</span>
+
+              <small class="error-message" data-error-for="ansiedad"></small>
+            </div>
+
+          </div>
+          <button type="submit" class="btn-primary" id="btn-evaluar">
+            Evaluar nivel de estrés
+          </button>
+
+        </form>
+      </section>
+
+      <section class="card resultado-card" id="resultado-card">
+        <h2>Resultado</h2>
+
+        <div id="estado-api" class="estado-api"></div>
+
+        <div id="spinner" class="spinner hidden" aria-hidden="true"></div>
+
+        <div id="resultado-contenido" class="resultado-contenido hidden">
+          <p class="resultado-label">Nivel de riesgo/estrés académico:</p>
+          <p id="nivel-riesgo" class="resultado-valor"></p>
+        </div>
+
+        <div id="mensaje-error" class="mensaje-error hidden"></div>
+
+        <details class="detalle-variables">
+          <summary>Ver valores utilizados en la evaluación</summary>
+          <ul id="detalle-valores"></ul>
+        </details>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
