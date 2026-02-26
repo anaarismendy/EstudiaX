@@ -55,6 +55,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  height: 715px;
 }
 
 /* Header */
@@ -366,4 +367,28 @@ input[type="range"] {
   color: var(--accent);
   margin-top: 4px;
   font-weight: 600;
+}
+
+.gif-resultado {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.gif-resultado img {
+  max-width: 300px;
+  height: auto;
+  border-radius: 12px;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

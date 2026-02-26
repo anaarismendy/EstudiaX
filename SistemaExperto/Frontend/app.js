@@ -10,6 +10,10 @@ const mensajeErrorEl = document.getElementById("mensaje-error");
 const detalleValoresEl = document.getElementById("detalle-valores");
 const estadoApiEl = document.getElementById("estado-api");
 
+const gifContainer = document.getElementById("gif-resultado");
+const gifImage = document.getElementById("imagen-gif");
+
+
 // Inputs
 const inputPromedio = document.getElementById("promedio");
 const inputInasistencias = document.getElementById("inasistencias");
@@ -189,11 +193,36 @@ form.addEventListener("submit", async (event) => {
 
     resultadoContenido.classList.remove("hidden");
     actualizarDetalleValores(payload);
+    // --- MANEJO DE GIF SEGÚN NIVEL ---
+
+    // Ocultamos primero por seguridad
+    gifContainer.classList.add("hidden");
+
+    const claseGif = clasNombreClaseRiesgo(nivel);
+
+    if (claseGif === "bajo") {
+      gifImage.src = "assets/gifs/bajo.gif";
+      gifContainer.classList.remove("hidden");
+    }
+
+    if (claseGif === "medio") {
+      gifImage.src = "assets/gifs/medio.gif";
+      gifContainer.classList.remove("hidden");
+    }
+
+    if (claseGif === "alto") {
+      gifImage.src = "assets/gifs/alto.gif";
+      gifContainer.classList.remove("hidden");
+    }
+
   } catch (err) {
     console.error(err);
     mostrarErrorGeneral(
       "No se pudo obtener el resultado. Verifica que la API esté activa y vuelve a intentarlo."
     );
+
+
+    gifContainer.classList.remove("hidden");
   } finally {
     setCargando(false);
   }
