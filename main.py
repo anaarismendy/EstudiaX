@@ -7,6 +7,8 @@ API Unificada:
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from fastapi.staticfiles import StaticFiles
+
 
 # Importaciones de tus módulos
 from logica_difusa.logicaDifusa import calcular_nivel_estres
@@ -92,3 +94,5 @@ def evaluar(datos: DatosEstudiante):
     return {
         "nivel_riesgo": resultado
     }
+
+app.mount("/", StaticFiles(directory="public", html=True), name="static")

@@ -1,6 +1,8 @@
 // Cambia esto si tu API corre en otro host/puerto.
-const API_BASE_URL = "http://127.0.0.1:8000";
-
+const API_BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+  ? "http://127.0.0.1:8000"
+  : "";
+  
 const form = document.getElementById("form-evaluacion");
 const btnEvaluar = document.getElementById("btn-evaluar");
 const spinner = document.getElementById("spinner");
@@ -201,17 +203,17 @@ form.addEventListener("submit", async (event) => {
     const claseGif = clasNombreClaseRiesgo(nivel);
 
     if (claseGif === "bajo") {
-      gifImage.src = "assets/gifs/bajo.gif";
+      gifImage.src = "../assets/bajo.gif";
       gifContainer.classList.remove("hidden");
     }
 
     if (claseGif === "medio") {
-      gifImage.src = "assets/gifs/medio.gif";
+      gifImage.src = "../assets/medio.gif";
       gifContainer.classList.remove("hidden");
     }
 
     if (claseGif === "alto") {
-      gifImage.src = "assets/gifs/alto.gif";
+      gifImage.src = "../assets/alto.gif";
       gifContainer.classList.remove("hidden");
     }
 

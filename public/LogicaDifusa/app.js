@@ -1,5 +1,7 @@
-const API_BASE_URL = "http://127.0.0.1:8000";
-
+const API_BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+  ? "http://127.0.0.1:8000"
+  : "";
+  
 const form = document.getElementById("form-evaluacion");
 const btnEvaluar = document.getElementById("btn-evaluar");
 const spinner = document.getElementById("spinner");
@@ -102,15 +104,15 @@ form.addEventListener("submit", async (e) => {
     const claseGif = clasNombreClaseRiesgo(data.nivel);
 
     if (claseGif === "leve") {
-      gifImage.src = "assets/gifs/bajo2.gif";
+      gifImage.src = "../assets/bajo2.gif";
       gifContainer.classList.remove("hidden");
     }
     else if (claseGif === "medio") {
-      gifImage.src = "assets/gifs/medio2.gif";
+      gifImage.src = "../assets/medio2.gif";
       gifContainer.classList.remove("hidden");
     }
     else if (claseGif === "alto") {
-      gifImage.src = "assets/gifs/alto2.gif";
+      gifImage.src = "../assets/alto2.gif";
       gifContainer.classList.remove("hidden");
     }
 
