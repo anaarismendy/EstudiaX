@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EstudiaX</title>
+
+<style>
+:root {
+  --bg-gradient-start: #0f172a;
+  --bg-gradient-end: #1e293b;
+  --card-bg: #0b1120;
+  --accent: #38bdf8;
+  --accent-strong: #0ea5e9;
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+  --border-subtle: rgba(148, 163, 184, 0.3);
+  --shadow-soft: 0 20px 60px rgba(15, 23, 42, 0.7);
+  --radius-lg: 18px;
+  --radius-full: 999px;
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #1f2937, #020617 60%);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Contenedor principal */
+.app-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 24px;
+  padding: 40px;
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(59, 130, 246, 0.02)),
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent),
+    radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.12), transparent),
+    #020617;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Header */
+.app-header {
+  text-align: center;
+}
+
+.app-header h1 {
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  font-weight: 650;
+  letter-spacing: 0.03em;
+  background: linear-gradient(90deg, #e5e7eb, #a5b4fc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.app-header p {
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* Sección de selección */
+.selector-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .selector-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card */
+.card {
+  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), #020617);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  padding: 30px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 70px rgba(37, 99, 235, 0.35);
+}
+
+.card h2 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+/* Botón */
+.btn-primary {
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 12px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #0b1120;
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.35);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 35px rgba(37, 99, 235, 0.45);
+}
+
+.footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app-container">
+  
+  <header class="app-header">
+    <h1>EstudiaX</h1>
+    <p>Selecciona el tipo de modelo que deseas utilizar</p>
+  </header>
+
+  <section class="selector-section">
+
+    <!-- Sistema Experto -->
+    <div class="card">
+      <h2>Sistema Experto</h2>
+      <p>
+        Evalúa el riesgo académico utilizando reglas basadas en conocimiento experto.
+      </p>
+      <button class="btn-primary" onclick="irSistemaExperto()">
+        Usar Sistema Experto
+      </button>
+    </div>
+
+    <!-- Lógica Difusa -->
+    <div class="card">
+      <h2>Lógica Difusa</h2>
+      <p>
+        Analiza niveles de estrés académico mediante inferencia difusa.
+      </p>
+      <button class="btn-primary" onclick="irLogicaDifusa()">
+        Usar Lógica Difusa
+      </button>
+    </div>
+
+  </section>
+</div>
+
+<script>
+function irSistemaExperto() {
+  // Cambia esta ruta según tu estructura
+  window.location.href = "SistemaExperto/Frontend/index.html";
+}
+
+function irLogicaDifusa() {
+  // Cambia esta ruta según tu estructura
+  window.location.href = "logica_difusa/Frontend/index.html";
+}
+</script>
+
+</body>
+</html>
