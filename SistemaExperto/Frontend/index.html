@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sistema Experto Académico</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <h1>Sistema Experto Académico</h1>
+      <p>Evalúa el nivel de riesgo académico de un estudiante.</p>
+    </header>
+
+    <main class="app-main">
+      <section class="card formulario-card">
+        <h2>Datos del estudiante</h2>
+
+        <form id="form-evaluacion" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="promedio">
+                Promedio
+                <span class="hint">(0.0 - 5.0)</span>
+              </label>
+              <input
+                type="number"
+                id="promedio"
+                name="promedio"
+                step="0.01"
+                min="0"
+                max="5"
+                placeholder="Ej: 3.8"
+                required
+              />
+              <small class="error-message" data-error-for="promedio"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="inasistencias">
+                Inasistencias
+                <span class="hint">(número entero)</span>
+              </label>
+              <input
+                type="number"
+                id="inasistencias"
+                name="inasistencias"
+                min="0"
+                step="1"
+                placeholder="Ej: 3"
+                required
+              />
+              <small class="error-message" data-error-for="inasistencias"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="participacion">
+                Participación
+                <span class="hint">(1 - 10)</span>
+              </label>
+              <input
+                type="number"
+                id="participacion"
+                name="participacion"
+                min="1"
+                max="10"
+                step="1"
+                placeholder="Ej: 7"
+                required
+              />
+              <small class="error-message" data-error-for="participacion"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="horas_estudio">
+                Horas de estudio
+                <span class="hint">(por semana)</span>
+              </label>
+              <input
+                type="number"
+                id="horas_estudio"
+                name="horas_estudio"
+                min="0"
+                step="0.1"
+                placeholder="Ej: 8"
+                required
+              />
+              <small class="error-message" data-error-for="horas_estudio"></small>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" id="btn-evaluar">
+            Evaluar riesgo
+          </button>
+
+          <p class="helper-text">
+            Ajusta los valores y vuelve a evaluar para simular diferentes escenarios.
+          </p>
+        </form>
+      </section>
+
+      <section class="card resultado-card" id="resultado-card">
+        <h2>Resultado</h2>
+
+        <div id="estado-api" class="estado-api"></div>
+
+        <div id="spinner" class="spinner hidden" aria-hidden="true"></div>
+
+        <div id="resultado-contenido" class="resultado-contenido hidden">
+          <p class="resultado-label">Nivel de riesgo académico:</p>
+          <p id="nivel-riesgo" class="resultado-valor"></p>
+        </div>
+
+        <div id="mensaje-error" class="mensaje-error hidden"></div>
+
+        <details class="detalle-variables">
+          <summary>Ver valores utilizados en la evaluación</summary>
+          <ul id="detalle-valores"></ul>
+        </details>
+      </section>
+    </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
