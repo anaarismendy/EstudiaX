@@ -1,7 +1,7 @@
 const API_BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
   ? "http://127.0.0.1:8000"
   : "";
-  
+
 const form = document.getElementById("form-evaluacion");
 const btnEvaluar = document.getElementById("btn-evaluar");
 const spinner = document.getElementById("spinner");
@@ -75,7 +75,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/evaluar-estres?sueno=${sueno}&carga=${carga}&ansiedad=${ansiedad}`
+      `${API_BASE_URL}/api/evaluar-estres?sueno=${sueno}&carga=${carga}&ansiedad=${ansiedad}`
     );
 
     const data = await response.json();
