@@ -1,7 +1,6 @@
-// Cambia esto si tu API corre en otro host/puerto.
 const API_BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
   ? "http://127.0.0.1:8000"
-  : "";
+  : window.location.origin;
 
 const form = document.getElementById("form-evaluacion");
 const btnEvaluar = document.getElementById("btn-evaluar");
