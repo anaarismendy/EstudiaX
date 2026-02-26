@@ -13,6 +13,9 @@ const inputSueno = document.getElementById("sueño");
 const inputCarga = document.getElementById("carga");
 const inputAnsiedad = document.getElementById("ansiedad");
 
+const gifContainer = document.getElementById("gif-resultado");
+const gifImage = document.getElementById("imagen-gif");
+
 function conectarSlider(input, outputId) {
   const output = document.getElementById(outputId);
   output.textContent = input.value;
@@ -47,7 +50,7 @@ function clasNombreClaseRiesgo(nivel) {
   const texto = nivel.toLowerCase();
   if (texto.includes("alto")) return "alto";
   if (texto.includes("moderado")) return "medio";
-  if (texto.includes("bajo")) return "bajo";
+  if (texto.includes("leve")) return "leve";
   return "";
 }
 
@@ -78,6 +81,7 @@ form.addEventListener("submit", async (e) => {
     nivelRiesgoEl.textContent = data.nivel;
     nivelRiesgoEl.className = "resultado-valor";
 
+
     const clase = clasNombreClaseRiesgo(data.nivel);
     if (clase) nivelRiesgoEl.classList.add(clase);
 
@@ -89,6 +93,26 @@ form.addEventListener("submit", async (e) => {
     `;
 
     resultadoContenido.classList.remove("hidden");
+
+    // --- Mostrar GIF según nivel ---
+
+    gifContainer.classList.add("hidden");
+    gifImage.src = "";
+
+    const claseGif = clasNombreClaseRiesgo(data.nivel);
+
+    if (claseGif === "leve") {
+      gifImage.src = "assets/gifs/bajo2.gif";
+      gifContainer.classList.remove("hidden");
+    }
+    else if (claseGif === "medio") {
+      gifImage.src = "assets/gifs/medio2.gif";
+      gifContainer.classList.remove("hidden");
+    }
+    else if (claseGif === "alto") {
+      gifImage.src = "assets/gifs/alto2.gif";
+      gifContainer.classList.remove("hidden");
+    }
 
   } catch (err) {
     mensajeErrorEl.textContent =
