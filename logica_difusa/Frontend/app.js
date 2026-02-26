@@ -70,7 +70,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/evaluar?sueno=${sueno}&carga=${carga}&ansiedad=${ansiedad}`
+      `${API_BASE_URL}/evaluar-estres?sueno=${sueno}&carga=${carga}&ansiedad=${ansiedad}`
     );
 
     const data = await response.json();

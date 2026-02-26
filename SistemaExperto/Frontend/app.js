@@ -1,5 +1,5 @@
 // Cambia esto si tu API corre en otro host/puerto.
-const API_BASE_URL = "http://localhost:8000";
+const API_BASE_URL = "http://127.0.0.1:8000";
 
 const form = document.getElementById("form-evaluacion");
 const btnEvaluar = document.getElementById("btn-evaluar");
@@ -15,6 +15,21 @@ const inputPromedio = document.getElementById("promedio");
 const inputInasistencias = document.getElementById("inasistencias");
 const inputParticipacion = document.getElementById("participacion");
 const inputHorasEstudio = document.getElementById("horas_estudio");
+
+function activarSlider(inputId, outputId) {
+  const input = document.getElementById(inputId);
+  const output = document.getElementById(outputId);
+
+  output.textContent = input.value;
+
+  input.addEventListener("input", () => {
+    output.textContent = input.value;
+  });
+}
+
+activarSlider("inasistencias", "valor-inasistencias");
+activarSlider("participacion", "valor-participacion");
+activarSlider("horas_estudio", "valor-horas_estudio");
 
 // Detectar estado de la API en el inicio
 async function verificarEstadoApi() {
@@ -182,4 +197,5 @@ form.addEventListener("submit", async (event) => {
   } finally {
     setCargando(false);
   }
+
 });

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <title>Sistema Experto Académico</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
   <div class="app-container">
     <header class="app-header">
@@ -19,84 +21,67 @@
 
         <form id="form-evaluacion" novalidate>
           <div class="form-grid">
+
+            <!-- PROMEDIO (se queda como number) -->
             <div class="form-group">
               <label for="promedio">
                 Promedio
                 <span class="hint">(0.0 - 5.0)</span>
               </label>
-              <input
-                type="number"
-                id="promedio"
-                name="promedio"
-                step="0.01"
-                min="0"
-                max="5"
-                placeholder="Ej: 3.8"
-                required
-              />
+              <input type="number" id="promedio" name="promedio" step="0.01" min="0" max="5" value="3.5" required />
               <small class="error-message" data-error-for="promedio"></small>
             </div>
 
+
+            <!-- INASISTENCIAS -->
             <div class="form-group">
               <label for="inasistencias">
                 Inasistencias
-                <span class="hint">(número entero)</span>
+                <span class="hint">(0 - 20)</span>
               </label>
-              <input
-                type="number"
-                id="inasistencias"
-                name="inasistencias"
-                min="0"
-                step="1"
-                placeholder="Ej: 3"
-                required
-              />
+
+              <input type="range" id="inasistencias" name="inasistencias" min="0" max="20" step="1" value="3" />
+
+              <span class="valor-slider" id="valor-inasistencias">3</span>
+
               <small class="error-message" data-error-for="inasistencias"></small>
             </div>
 
+
+            <!-- PARTICIPACIÓN -->
             <div class="form-group">
               <label for="participacion">
                 Participación
                 <span class="hint">(1 - 10)</span>
               </label>
-              <input
-                type="number"
-                id="participacion"
-                name="participacion"
-                min="1"
-                max="10"
-                step="1"
-                placeholder="Ej: 7"
-                required
-              />
+
+              <input type="range" id="participacion" name="participacion" min="1" max="10" step="1" value="5" />
+
+              <span class="valor-slider" id="valor-participacion">5</span>
+
               <small class="error-message" data-error-for="participacion"></small>
             </div>
 
+
+            <!-- HORAS DE ESTUDIO -->
             <div class="form-group">
               <label for="horas_estudio">
                 Horas de estudio
-                <span class="hint">(por semana)</span>
+                <span class="hint">(0 - 20)</span>
               </label>
-              <input
-                type="number"
-                id="horas_estudio"
-                name="horas_estudio"
-                min="0"
-                step="0.1"
-                placeholder="Ej: 8"
-                required
-              />
+
+              <input type="range" id="horas_estudio" name="horas_estudio" min="0" max="20" step="1" value="10" />
+
+              <span class="valor-slider" id="valor-horas_estudio">10</span>
+
               <small class="error-message" data-error-for="horas_estudio"></small>
             </div>
+
           </div>
 
           <button type="submit" class="btn-primary" id="btn-evaluar">
             Evaluar riesgo
           </button>
-
-          <p class="helper-text">
-            Ajusta los valores y vuelve a evaluar para simular diferentes escenarios.
-          </p>
         </form>
       </section>
 
@@ -118,9 +103,14 @@
           <summary>Ver valores utilizados en la evaluación</summary>
           <ul id="detalle-valores"></ul>
         </details>
+
+        <div>
+          
+        </div>
       </section>
     </main>
 
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
+
 </html>
