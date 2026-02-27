@@ -32,8 +32,6 @@ conectarSlider(inputCarga, "valor-carga");
 conectarSlider(inputAnsiedad, "valor-ansiedad");
 
 
-verificarEstadoApi();
-
 function setCargando(estado) {
   spinner.classList.toggle("hidden", !estado);
   btnEvaluar.disabled = estado;

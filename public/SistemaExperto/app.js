@@ -36,7 +36,6 @@ activarSlider("inasistencias", "valor-inasistencias");
 activarSlider("participacion", "valor-participacion");
 activarSlider("horas_estudio", "valor-horas_estudio");
 
-verificarEstadoApi();
 
 // Helpers de UI
 function limpiarMensajesError() {
