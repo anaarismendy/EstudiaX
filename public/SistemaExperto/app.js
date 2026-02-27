@@ -36,20 +36,6 @@ activarSlider("inasistencias", "valor-inasistencias");
 activarSlider("participacion", "valor-participacion");
 activarSlider("horas_estudio", "valor-horas_estudio");
 
-// Detectar estado de la API en el inicio
-async function verificarEstadoApi() {
-  try {
-    const res = await fetch(`${API_BASE_URL}/`);
-    if (!res.ok) throw new Error("Respuesta no OK");
-    const data = await res.json();
-    estadoApiEl.textContent = `Estado API: ${data.mensaje ?? "Activa"}`;
-  } catch (err) {
-    estadoApiEl.textContent =
-      "Estado API: No disponible. Verifica que el servidor FastAPI esté corriendo.";
-    estadoApiEl.style.color = "#f97373";
-  }
-}
-
 verificarEstadoApi();
 
 // Helpers de UI

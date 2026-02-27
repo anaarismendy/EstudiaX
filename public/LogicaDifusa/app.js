@@ -31,15 +31,6 @@ conectarSlider(inputSueno, "valor-sueño");
 conectarSlider(inputCarga, "valor-carga");
 conectarSlider(inputAnsiedad, "valor-ansiedad");
 
-async function verificarEstadoApi() {
-  try {
-    const res = await fetch(`${API_BASE_URL}/`);
-    const data = await res.json();
-    estadoApiEl.textContent = `Estado API: ${data.mensaje}`;
-  } catch {
-    estadoApiEl.textContent = "API no disponible";
-  }
-}
 
 verificarEstadoApi();
 
